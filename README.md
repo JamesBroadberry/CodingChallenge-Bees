@@ -23,6 +23,8 @@ The format of the tests follow a GivenASituation_ThisActionShouldHappen format.
 
 A report of the test coverage can be found [here](TestCoverage.html).
 
+![A screenshot of the dotCover test coverage report](TestCoverage.png "Test coverage screenshot")
+
 ## What I'd do differently next time
 
 - I'd change is the way which the view model populates the bees by extracting that functionality to a more commonly used pattern.

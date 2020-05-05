@@ -1,7 +1,7 @@
 # Coding Challenge
 
 This coding challenge is an OO based challenge for C#.
-The specification of the challenge can be found [here]("Challenge.md").
+The specification of the challenge can be found [here](Challenge.md).
 
 ## Part 1
 
@@ -21,7 +21,7 @@ NUnit 3 was chosen as the testing framework since it's what I'm comfortable with
 
 The format of the tests follow a GivenASituation_ThisActionShouldHappen format.
 
-A report of the test coverage can be found [here]("TestCoverage.html").
+A report of the test coverage can be found [here](TestCoverage.html).
 
 ## What I'd do differently next time
 

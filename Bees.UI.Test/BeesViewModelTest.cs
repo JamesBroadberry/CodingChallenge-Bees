@@ -1,7 +1,6 @@
 using Bees.Core;
 using Bees.UI.ViewModel;
 using NUnit.Framework;
-using System.ComponentModel;
 using System.Linq;
 
 namespace Bees.UI.Test
@@ -56,7 +55,7 @@ namespace Bees.UI.Test
             var beeToDamage = viewModel.Bees.First();
             var beeHealthDamaged = false;
          
-            ((Bee)beeToDamage).PropertyChanged += (object sender, PropertyChangedEventArgs e) => {
+            ((Bee)beeToDamage).PropertyChanged += (sender, e) => {
                 if (e.PropertyName == nameof(Bee.Health))
                 {
                     beeHealthDamaged = true;

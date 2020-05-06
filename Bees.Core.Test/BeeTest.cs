@@ -5,7 +5,6 @@ namespace Bees.Core.Test
 {
     public class BeeTest
     {
-
         [Test]
         public void WhenABeeIsFirstCreated_ItIsNotDead()
         {

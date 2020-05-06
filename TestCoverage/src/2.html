@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\James\source\repos\CodingChallenge-Bees\Bees.Core.Test\BeeTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Bees.Core.Test.TestResources;
+using NUnit.Framework;
+
+namespace Bees.Core.Test
+{
+    public class BeeTest
+    {
+        [Test]
+        public void WhenABeeIsFirstCreated_ItIsNotDead()
+        {
+            // Arrange
+            var bee = new TestBee(100, 50);
+
+            // Assert
+            Assert.IsFalse(bee.IsDead);
+        }
+
+        [Test]
+        public void WhenABeeIsDamagedByFourtyNinePercent_ItsHealthIsReducedToFiftyOnePercent()
+        {
+            // Arrange
+            var initialHealth = 50f;
+            var fiftyOnePercentOfInitialHealth = initialHealth * 0.51;
+            var bee = new TestBee(initialHealth, 50);
+
+            // Act
+            bee.Damage(49);
+
+            // Assert
+            Assert.AreEqual(fiftyOnePercentOfInitialHealth, bee.Health);
+        }
+
+        [Test]
+        public void WhenABeeIsDamagedByFiftyPercent_ItsHealthIsReducedByFiftyPercent()
+        {
+            // Arrange
+            var initialHealth = 50f;
+            var fiftyPercentOfInitialHealth = initialHealth * 0.5;
+            var bee = new TestBee(initialHealth, 50);
+
+            // Act
+            bee.Damage(50);
+
+            // Assert
+            Assert.AreEqual(fiftyPercentOfInitialHealth, bee.Health);
+        }
+
+        [Test]
+        public void WhenABeeIsDamagedByFiftyOnePercent_ItsHealthIsReducedToFourtyNinePercent()
+        {
+            // Arrange
+            var initialHealth = 50f;
+            var fourtyNinePercentOfInitialHealth = initialHealth * 0.49;
+            var bee = new TestBee(initialHealth, 50);
+
+            // Act
+            bee.Damage(51);
+
+            // Assert
+            Assert.AreEqual(fourtyNinePercentOfInitialHealth, bee.Health);
+        }
+
+        [Test]
+        public void WhenDamagingABeeTwiceForFiftyPercent_ItsHealthIsReducedToTwentyFivePercent()
+        {
+            // Arrange
+            var initialHealth = 50f;
+            var twentyFivePercentOfInitialHealth = initialHealth * 0.25;
+            var bee = new TestBee(initialHealth, 10);
+
+            // Act
+            bee.Damage(50);
+            bee.Damage(50);
+
+            // Assert
+            Assert.AreEqual(twentyFivePercentOfInitialHealth, bee.Health);
+        }
+
+        [Test]
+        public void WhenDamagingADeadBee_NoFurtherHeathDeductionsAreMadeAndNoErrorIsThrown()
+        {
+            // Arrange
+            var initialHealth = 50f;
+            var bee = new TestBee(initialHealth, 99);
+
+            // Act
+            bee.Damage(50);
+            var healthAfterFirstDamage = bee.Health;
+
+            bee.Damage(50);
+            var healthAfterSecondDamage = bee.Health;
+
+            // Assert
+            Assert.AreEqual(healthAfterFirstDamage, healthAfterSecondDamage);
+        }
+
+
+        [Test]
+        public void WhenABeeIsDamagedSlightlyLessThanItsThreshold_ItLives()
+        {
+            // Arrange
+            var threshold = 50;
+            var bee = new TestBee(50, threshold);
+
+            // Act
+            bee.Damage(threshold - 1);
+
+            // Assert
+            Assert.IsFalse(bee.IsDead);
+        }
+
+        [Test]
+        public void WhenABeeIsDamagedByExactlyItsThreshold_ItLives()
+        {
+            // Arrange
+            var threshold = 50;
+            var bee = new TestBee(50, threshold);
+
+            // Act
+            bee.Damage(threshold);
+
+            // Assert
+            Assert.IsFalse(bee.IsDead);
+        }
+
+        [Test]
+        public void WhenABeeIsDamagedSlightlyMoreThanItsThreshold_ItDies()
+        {
+            // Arrange
+            var threshold = 50;
+            var bee = new TestBee(50, threshold);
+
+            // Act
+            bee.Damage(threshold + 1);
+
+            // Assert
+            Assert.IsTrue(bee.IsDead);
+        }
+
+        [Test]
+        public void WhenABeeIsDamagedMoreThanOneHundredPercent_ItsHealthIsZero()
+        {
+            // Arrange
+            var bee = new TestBee(50, 50);
+
+            // Act
+            bee.Damage(200);
+
+            // Assert
+            Assert.AreEqual(0, bee.Health);
+        }
+
+        [Test]
+        public void WhenABeeIsDamagedLessThanZeroPercent_ItsHealthIsUnchanged()
+        {
+            // Arrange
+            var initialHealth = 50;
+            var bee = new TestBee(initialHealth, 50);
+
+            // Act
+            bee.Damage(-100);
+
+            // Assert
+            Assert.AreEqual(initialHealth, bee.Health);
+        }
+
+        [Test]
+        public void WhenCallingToStringOnABee_TheStringContainsItsHealth()
+        {
+            // Arrange
+            var bee = new TestBee(50, 50);
+
+            // Act
+            var beeString = bee.ToString();
+
+            // Assert
+            Assert.IsTrue(beeString.Contains(bee.Health.ToString()));
+        }
+
+        [Test]
+        public void WhenCallingToStringOnABeeAndTheBeeIsAlive_TheStringContainsAlive()
+        {
+            // Arrange
+            var bee = new TestBee(50, 50);
+
+            // Act
+            var beeString = bee.ToString();
+
+            // Assert
+            Assert.IsTrue(beeString.Contains(&quot;alive&quot;));
+        }
+
+        [Test]
+        public void WhenCallingToStringOnABeeAndTheBeeIsDead_TheStringContainsDead()
+        {
+            // Arrange
+            var bee = new TestBee(50, 50);
+
+            // Act
+            bee.Damage(100);
+            var beeString = bee.ToString();
+
+            // Assert
+            Assert.IsTrue(beeString.Contains(&quot;dead&quot;));
+        }
+
+        [Test]
+        public void WhenCallingToStringOnABee_TheStringContainsItsType()
+        {
+            // Arrange
+            var bee = new TestBee(50, 50);
+
+            // Act
+            bee.Damage(100);
+            var beeString = bee.ToString();
+
+            // Assert
+            Assert.IsTrue(beeString.Contains(&quot;TestBee&quot;));
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[10,9,10,10,1],[12,13,12,44,1],[15,13,15,40,1],[16,9,16,10,1],[20,9,20,10,1],[22,13,22,37,1],[23,13,23,71,1],[24,13,24,54,1],[27,13,27,28,1],[30,13,30,73,1],[31,9,31,10,1],[35,9,35,10,1],[37,13,37,37,1],[38,13,38,67,1],[39,13,39,54,1],[42,13,42,28,1],[45,13,45,70,1],[46,9,46,10,1],[50,9,50,10,1],[52,13,52,37,1],[53,13,53,73,1],[54,13,54,54,1],[57,13,57,28,1],[60,13,60,75,1],[61,9,61,10,1],[65,9,65,10,1],[67,13,67,37,1],[68,13,68,73,1],[69,13,69,54,1],[72,13,72,28,1],[73,13,73,28,1],[76,13,76,75,1],[77,9,77,10,1],[81,9,81,10,1],[83,13,83,37,1],[84,13,84,54,1],[87,13,87,28,1],[88,13,88,53,1],[90,13,90,28,1],[91,13,91,54,1],[94,13,94,78,1],[95,9,95,10,1],[100,9,100,10,1],[102,13,102,32,1],[103,13,103,50,1],[106,13,106,39,1],[109,13,109,40,1],[110,9,110,10,1],[114,9,114,10,1],[116,13,116,32,1],[117,13,117,50,1],[120,13,120,35,1],[123,13,123,40,1],[124,9,124,10,1],[128,9,128,10,1],[130,13,130,32,1],[131,13,131,50,1],[134,13,134,39,1],[137,13,137,39,1],[138,9,138,10,1],[142,9,142,10,1],[144,13,144,43,1],[147,13,147,29,1],[150,13,150,44,1],[151,9,151,10,1],[155,9,155,10,1],[157,13,157,36,1],[158,13,158,54,1],[161,13,161,30,1],[164,13,164,56,1],[165,9,165,10,1],[169,9,169,10,1],[171,13,171,43,1],[174,13,174,44,1],[177,13,177,70,1],[178,9,178,10,1],[182,9,182,10,1],[184,13,184,43,1],[187,13,187,44,1],[190,13,190,56,1],[191,9,191,10,1],[195,9,195,10,1],[197,13,197,43,1],[200,13,200,29,1],[201,13,201,44,1],[204,13,204,55,1],[205,9,205,10,1],[209,9,209,10,1],[211,13,211,43,1],[214,13,214,29,1],[215,13,215,44,1],[218,13,218,58,1],[219,9,219,10,1]]);
+    </script>
+  </body>
+</html>

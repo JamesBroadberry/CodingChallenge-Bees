@@ -21,7 +21,7 @@ NUnit 3 was chosen as the testing framework since it's what I'm comfortable with
 
 The format of the tests follow a GivenASituation_ThisActionShouldHappen format.
 
-A report of the test coverage can be found [here](TestCoverage.html).
+A report of the test coverage can be found [here](TestCoverage.zip).
 
 ![A screenshot of the dotCover test coverage report](TestCoverage.png "Test coverage screenshot")
 

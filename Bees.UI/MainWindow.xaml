@@ -5,23 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Margin="10">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="10">
         <ItemsControl ItemsSource="{Binding Bees}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate >
+                    <WrapPanel IsItemsHost="True" Margin="5" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="100" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding Health}"  />
-                        <TextBlock Grid.Column="1" Text="{Binding IsDead}"  />
-                        <Button Grid.Column="2" Command="{Binding DataContext.Damage, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" />
-                    </Grid>
+                    <Border BorderBrush="{Binding IsDead, Converter={StaticResource BooleanToDeadBrushConverter}}" BorderThickness="1" Margin="5">
+                    <StackPanel Orientation="Vertical" Width="100" Margin="5">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Health: " />
+                                <TextBlock Text="{Binding Health}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Dead: " />
+                                <TextBlock Text="{Binding IsDead}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Type: " />
+                                <TextBlock Text="{Binding Converter={StaticResource BeeTypeToStringConverter}}"/>
+                            </StackPanel>
+                            
+                            <Button Content="Damage" Command="{Binding DataContext.Damage, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" Margin="0 5" />
+                    </StackPanel>
+                    </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-    </Grid>
+    </ScrollViewer>
 </Window>

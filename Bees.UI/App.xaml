@@ -1,9 +1,10 @@
 ﻿<Application x:Class="Bees.UI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Bees.UI"
+             xmlns:conv="clr-namespace:Bees.UI.Converters"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <conv:BeeTypeToStringConverter x:Key="BeeTypeToStringConverter" />
+        <conv:BooleanToDeadBrushConverter x:Key="BooleanToDeadBrushConverter" />
     </Application.Resources>
 </Application>

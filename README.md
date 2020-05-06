@@ -30,5 +30,4 @@ A report of the test coverage can be found [here](TestCoverage.html).
 - I'd change is the way which the view model populates the bees by extracting that functionality to a more commonly used pattern.
 - I'd change is to take some of the hard-coded values out in to an application settings file to be able to adjust them on the fly. Examples of these values include the intial health of the bees, the 0-80 range for how much damage is dealt, how many of each type of bee are generated.
 - I'd also dependency inject the Random class to be able to mock it in tests to be able to test how much damage will be dealt. This is because there is a (very) small chance that it can return 0 and potentially deal no damage.
-- I'd like to have polished the UI to make it look better using re-usable components rather than the state it's currently in.
 - I'd also look at some UI testing frameworks to be able to test things such as all elements being visible, actually pressing the buttons and seeing UI elements react to that.

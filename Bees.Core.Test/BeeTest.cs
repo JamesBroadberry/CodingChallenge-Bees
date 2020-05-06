@@ -139,6 +139,33 @@ namespace Bees.Core.Test
         }
 
         [Test]
+        public void WhenABeeIsDamagedMoreThanOneHundredPercent_ItsHealthIsZero()
+        {
+            // Arrange
+            var bee = new TestBee(50, 50);
+
+            // Act
+            bee.Damage(200);
+
+            // Assert
+            Assert.AreEqual(0, bee.Health);
+        }
+
+        [Test]
+        public void WhenABeeIsDamagedLessThanZeroPercent_ItsHealthIsUnchanged()
+        {
+            // Arrange
+            var initialHealth = 50;
+            var bee = new TestBee(initialHealth, 50);
+
+            // Act
+            bee.Damage(-100);
+
+            // Assert
+            Assert.AreEqual(initialHealth, bee.Health);
+        }
+
+        [Test]
         public void WhenCallingToStringOnABee_TheStringContainsItsHealth()
         {
             // Arrange

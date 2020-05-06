@@ -36,6 +36,16 @@ namespace Bees.Core
         {
             if (IsDead) return;
 
+            if (percentage > 100)
+            {
+                percentage = 100;
+            }
+
+            if (percentage < 0)
+            {
+                percentage = 0;
+            }
+
             Health -= Health * (percentage / 100f);
         }
 
